@@ -10,11 +10,11 @@
 // Дата атрибуты мы задаем руками, если не помним, читаем спецификацию к HTML
 
 // const tagsContainer = document.querySelector('.js-tags'); // настраиваем нашу ссылку с контейнером ul.
-// let selectedTag = null; // переменная дл хранения текущей активной кнопки, в конце мы будем выводить её в консоль
+// let selectedTag = null; // переменная для хранения текущей активной кнопки, в конце мы будем выводить её в консоль
 
 // tagsContainer.addEventListener('click', onTagsContainerClick); // вешаем на контейнер слушателя событий
 
-// // Напишем функцию для обработки событий:
+// // Напишем функцию в которой пропишем условие игнора если клик не по кнопке:
 // function onTagsContainerClick(evt) {
 //   console.log(evt.target); // достучались, но у нас внутри нашего контейнера, помимо кнопко есть ещё и список из "li", т.е. кликая внутрь контейнера
 // // мы можем попадать не на кнопки, а на элементы списка, поэтому нам необходимо ввести условие, если не кнопка то игнор (пока используем подход через nodeName):
@@ -29,7 +29,7 @@
 
 // // Для этого:
 //   // Добавим переменную с поиском активной кнопки:
-//   const currentActiveBtn = document.querySelector('.tags__btn--active'); // добавим переменную, котора будет определть текущую активную кнопку (по классу)
+//   const currentActiveBtn = document.querySelector('.tags__btn--active'); // добавим переменную, котора будет определять текущую активную кнопку (по классу)
 //   // console.log(currentActiveBtn); // при первом нажатии на кнопку, значение будет null т.к.до этого класс не назанчался какой либо кнопке.Последующие клики
 //   // укажут на уже сущесвующую кнопку с классом
 //   // Далее удалим класс с предыдущей кнопки, но если мы пропишем вот так, то: currentActiveBtn.classList.remove('tags__btn--active'); то будет ошибка,
@@ -46,11 +46,14 @@
 
 // // Этот if можно заменить следующим выражением:
   
-//   // currentActiveBtn?.classList.remove('tags__btn--active'); // что делает такая запись "?." ("?" называется необязательно свойство), она говорит, если у
+//   // currentActiveBtn?.classList.remove('tags__btn--active'); // что делает такая запись "?." ("?" называется необязательно свойство), она говорит, если
 //   // на этом месте(перед ?) есть к примеру объекта "currentActiveBtn" либо какой либо другое, но не null или undefined, то оно у этого объекта возьмет
 //   // свойство свойство classList, если же на месте объекта будет null или undefined, то выражение после "?".classList.remove('tags__btn--active'); даже
 //   // не начнет выполняться. Было уже объяснении в лекции где обсуждали библиотеку лодаш. В данном случае мы можем заменить наш "if" на такое выражение,
-//   // т.к. это выражение применимо к работе с свойтвами. К примеру в этом случае мы без "if" не обойдемся, т.к в нашем условии нет объекта, а выражение
+//   // т.к. это выражение применимо к работе с свойтвами.
+
+// ___________________________________________________________________________________________________________________________________________________________
+// К примеру в этом случае мы без "if" не обойдемся, т.к в нашем условии нет объекта, а выражение
 //   // с "?" работает только с свойствами объекта:
 
 // //   const settings = {
@@ -75,7 +78,8 @@
   
 //   // А без проверки вообще упадёт скрипт:
 //   // const settings = null;
-//   // console.log(settings.them.userDefined.color);
+// //   // console.log(settings.them.userDefined.color);
+// ____________________________________________________________________________________________________________________________________________________________
 
 //   // Ну а далее установим класс, на следующий элемент:
 //   const nextActiveBtn = evt.target;
@@ -88,29 +92,40 @@
 
 // Чистовой вариант:
 
-// const tagsContainer = document.querySelector('.js-tags');
-// let selectedTag = null;
+
+// const tagsContainer = document.querySelector('.js-tags'); // ссылка на контейнер
+// let selectedTag = null; // переменна в которую
 
 // tagsContainer.addEventListener('click', onTagsContainerClick);
 
+// Напишем функцию в которой пропишем условие игнора если клик не по кнопке:
 // function onTagsContainerClick(evt) {
 //   console.log(evt.target);
 //   if (evt.target.nodeName !== 'BUTTON') {
 //     return;
 //   }
 
- 
+// Далее мы хотим повесить класс тому элементу на который кликаем, т.е. сделать кнопку активной:
 //   evt.target.classList.add('.tags__btn--active');
+
+// Добавим переменную с поиском активной кнопки, по классу:
 //   const currentActiveBtn = document.querySelector('.tags__btn--active');
 
+// Пропишем условие: если активная кнопка уже есть, то снять класс:
 //   if (currentActiveBtn) {
 //     currentActiveBtn.classList.remove('tags__btn--active');
 //   }
 
+// Пропишем переменную в которую определим кнопку на которую кликаем:
 //   const nextActiveBtn = evt.target;
+
+// Добавим класс новой кнопке на которую кликнули, т.е. сделаем её активной
 //   nextActiveBtn.classList.add('tags__btn--active');
+
+// Значение активной кнопки запишем в переменную:
 //   selectedTag = nextActiveBtn.dataset.value;
 
+// Выведем в консоль значение активной кнопки:
 //   console.log(selectedTag);
 // }
 
@@ -154,7 +169,7 @@
 // Если мы попытаемся записать в массив два объекта с одинаковыми значениями, то запишутся два объекта, т.к. это две разные ячейки(объекта) в памяти.
 
 // const tagsContainer = document.querySelector('.js-tags');
-// const selectedTags = new Set(); // добавлем глобальную переменную
+// const selectedTags = new Set(); // new Set() создает новый экземпляр объекта Set, который является коллекцией уникальных значений (без повторений).
 
 // tagsContainer.addEventListener('click', onTagsContainerClick);
 
@@ -175,7 +190,7 @@
 // Перепишем(расширим) условие:
 
 // const tagsContainer = document.querySelector('.js-tags');
-// const selectedTags = new Set(); 
+// const selectedTags = new Set(); // new Set() создает новый экземпляр объекта Set, который является коллекцией уникальных значений (без повторений).
 
 // tagsContainer.addEventListener('click', onTagsContainerClick);
 
@@ -212,26 +227,26 @@
 
 // Перепишем начисто:
 
-// const tagsContainer = document.querySelector('.js-tags');
-// const selectedTags = new Set();
+const tagsContainer = document.querySelector('.js-tags');
+const selectedTags = new Set(); // new Set() создает новый экземпляр объекта Set, который является коллекцией уникальных значений (без повторений).
 
-// tagsContainer.addEventListener('click', onTagsContainerClick);
+tagsContainer.addEventListener('click', onTagsContainerClick);
 
-// function onTagsContainerClick(evt) {
-//   if (evt.target.nodeName !== 'BUTTON') {
-//     return;
-//   }
+function onTagsContainerClick(evt) {
+  if (evt.target.nodeName !== 'BUTTON') {
+    return;
+  }
 
-//   const btn = evt.target;
-//   const tag = btn.dataset.value;
-//   const isActive = btn.classList.contains('tags__btn--active');
+  const btn = evt.target;
+  const tag = btn.dataset.value;
+  const isActive = btn.classList.contains('tags__btn--active');
 
-//   if (isActive) {
-//     selectedTags.delete(tag);
-//   } else {
-//     selectedTags.add(tag);
-//   }
+  if (isActive) {
+    selectedTags.delete(tag);
+  } else {
+    selectedTags.add(tag);
+  }
 
-//   btn.classList.toggle('tags__btn--active');
-//   console.log(selectedTags);
-// }
+  btn.classList.toggle('tags__btn--active');
+  console.log(selectedTags);
+}
